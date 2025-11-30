@@ -1,12 +1,15 @@
 package com.sherif.qalam.config.auth.service;
 
-import com.sherif.qalam.config.auth.User;
+import com.sherif.qalam.config.auth.entity.User;
 import com.sherif.qalam.config.auth.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,8 +19,14 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("user not found with name + "+username));
+        Optional<User> userOptional = userRepository.findByUsername(username);
+        if(userOptional.isEmpty()) throw new UsernameNotFoundException("user not found with name + " + username);
+        User user = userOptional.get();
+        return new org.springframework.security.core.userdetails.User(
+                user.getUsername(),
+                user.getPassword(),
+                Collections.emptyList()
+        );
     }
 
 

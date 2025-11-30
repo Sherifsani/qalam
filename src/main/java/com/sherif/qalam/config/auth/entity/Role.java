@@ -1,4 +1,4 @@
-package com.sherif.qalam.config.auth;
+package com.sherif.qalam.config.auth.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 
