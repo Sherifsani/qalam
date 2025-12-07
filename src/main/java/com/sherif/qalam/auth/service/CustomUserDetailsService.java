@@ -1,7 +1,7 @@
-package com.sherif.qalam.config.auth.service;
+package com.sherif.qalam.auth.service;
 
-import com.sherif.qalam.config.auth.entity.User;
-import com.sherif.qalam.config.auth.repository.UserRepository;
+import com.sherif.qalam.auth.entity.User;
+import com.sherif.qalam.auth.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -25,7 +25,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),
-                Collections.emptyList()
+                Collections.singletonList(user.getRole())
         );
     }
 

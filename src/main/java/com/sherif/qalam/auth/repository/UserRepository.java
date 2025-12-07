@@ -1,6 +1,6 @@
-package com.sherif.qalam.config.auth.repository;
+package com.sherif.qalam.auth.repository;
 
-import com.sherif.qalam.config.auth.entity.User;
+import com.sherif.qalam.auth.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

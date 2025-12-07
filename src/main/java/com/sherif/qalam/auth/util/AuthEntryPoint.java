@@ -1,4 +1,4 @@
-package com.sherif.qalam.config.auth.util;
+package com.sherif.qalam.auth.util;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

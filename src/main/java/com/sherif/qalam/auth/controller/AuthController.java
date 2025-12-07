@@ -1,10 +1,9 @@
-package com.sherif.qalam.config.auth.controller;
+package com.sherif.qalam.auth.controller;
 
-import com.sherif.qalam.config.auth.entity.User;
-import com.sherif.qalam.config.auth.repository.UserRepository;
-import com.sherif.qalam.config.auth.util.JwtUtil;
+import com.sherif.qalam.auth.entity.User;
+import com.sherif.qalam.auth.repository.UserRepository;
+import com.sherif.qalam.auth.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -41,11 +40,12 @@ public class AuthController {
         if(userRepository.existsByUsername(user.getUsername())){
             return "User already exists";
         }
-        final User newUser = new User(
-                null,
-                user.getUsername(),
-                passwordEncoder.encode(user.getPassword())
-        );
+        final User newUser = User
+                .builder()
+                .role(user.getRole())
+                .username(user.getUsername())
+                .password(user.getPassword())
+                .build();
         userRepository.save(newUser);
         return "User registered successfully";
     }

@@ -1,19 +1,18 @@
-package com.sherif.qalam.config.auth.entity;
+package com.sherif.qalam.auth.entity;
 
+import com.sherif.qalam.note.entity.Note;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.Collections;
+import java.util.List;
 
-@RequiredArgsConstructor
+@Builder
 @AllArgsConstructor
 @Getter
 @Setter
 @Entity
 @Table(name = "app_user")
+@NoArgsConstructor
 public class User  {
 
     @Id
@@ -26,7 +25,10 @@ public class User  {
     @Column(nullable = false)
     private String password;
 
-//    @Enumerated(EnumType.STRING)
-//    private Role role;
+    @Enumerated(EnumType.STRING)
+    private Role role = Role.ROLE_USER;
+
+    @OneToMany(mappedBy = "user", cascade =  CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Note> noteList;
 
 }
